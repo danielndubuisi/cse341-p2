@@ -1,0 +1,14 @@
+// LOCAL HOST
+### Get all contacts
+GET http://localhost:8080/contacts
+
+### Get one contact
+GET http://localhost:8080/contacts/690a27b7ae0d056e6868bafb
+
+
+// PRODUCTION
+### Get all contacts
+GET https://cse341-web-service-wq7m.onrender.com/contacts
+
+### Get one contact
+GET https://cse341-web-service-wq7m.onrender.com/contacts/690a27b7ae0d056e6868bafb
