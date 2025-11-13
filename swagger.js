@@ -7,8 +7,8 @@ const doc = {
         title: 'My CSE341 API',
         description: 'CSE341 web services API documentation for Daniel Ndubuisi'
     },
-    host: 'localhost:8080', // Your API host
-    schemes: ['http']
+    host: 'cse341-web-service-wq7m.onrender.com', // API host
+    schemes: ['https']
 };
 
 swaggerAutogen(outputFile, endpointsFiles, doc).then(() => {
