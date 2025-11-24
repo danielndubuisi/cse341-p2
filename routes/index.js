@@ -7,6 +7,7 @@ const {
     updateUser,
     deleteUser
 } = require('../controllers/users');
+const { userValidationRules, validate } = require('../middleware/validator');
 
 //index route
 router.get('/', (req, res) => {
@@ -18,8 +19,8 @@ router.get('/', (req, res) => {
 // // contact routes
 router.get('/users', getAllUsers);
 router.get('/users/:id', getOneUser);
-router.post('/users', createUser);
-router.put('/users/:id', updateUser);
+router.post('/users', userValidationRules(), validate, createUser);
+router.put('/users/:id', userValidationRules(), validate, updateUser);
 router.delete('/users/:id', deleteUser);
 
 module.exports = router;

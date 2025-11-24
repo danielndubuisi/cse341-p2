@@ -3,25 +3,43 @@ const { ObjectId } = require('mongodb');
 
 //get all contacts
 const getAllUsers = async (req, res) => {
-    const result = await getDb().db('cse341-p2').collection('users').find();
-
-    result.toArray().then((users) => {
-        res.setHeader('Content-Type', 'application/json');
-        res.status(200).json(users);
-    });
+    try {
+        await getDb()
+            .db('cse341-p2')
+            .collection('users')
+            .find()
+            .toArray()
+            .then((users) => {
+                res.setHeader('Content-Type', 'application/json');
+                res.status(200).json(users);
+            });
+    } catch (err) {
+        res.status(500).json({ message: err });
+    }
 };
 
 //get one contact
 const getOneUser = async (req, res) => {
-    const userId = req.params.id;
-    const result = await getDb()
-        .db('cse341-p2')
-        .collection('users')
-        .find({ _id: new ObjectId(userId) });
-    result.toArray().then((users) => {
-        res.setHeader('Content-Type', 'application/json');
-        res.status(200).json(users[0]);
-    });
+    // Validate the id
+    if (!ObjectId.isValid(req.params.id)) {
+        res.status(400).json('Must use a valid user id.');
+    }
+    // Create a new ObjectId
+    const userId = new ObjectId(req.params.id);
+    // Fetch the user from the database
+    try {
+        await getDb()
+            .db('cse341-p2')
+            .collection('users')
+            .find({ _id: userId })
+            .toArray()
+            .then((users) => {
+                res.setHeader('Content-Type', 'application/json');
+                res.status(200).json(users[0]);
+            });
+    } catch (err) {
+        res.status(500).json({ message: err });
+    }
 };
 
 //create new contact
@@ -41,7 +59,7 @@ const createUser = async (req, res) => {
             zip: req.body.address.zip
         }
     };
-
+    // Insert the new user into the database
     const result = await getDb().db('cse341-p2').collection('users').insertOne(newUser);
     if (result.acknowledged) {
         res.status(201).json(result._id);
@@ -52,7 +70,13 @@ const createUser = async (req, res) => {
 
 // update one contact
 const updateUser = async (req, res) => {
-    const userId = req.params.id;
+    // Validate the id
+    if (!ObjectId.isValid(req.params.id)) {
+        res.status(400).json('Must use a valid user id.');
+    }
+    // Create a new ObjectId
+    const userId = new ObjectId(req.params.id);
+    // Create the updated user object
     const updatedUser = {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
@@ -68,10 +92,11 @@ const updateUser = async (req, res) => {
             zip: req.body.address.zip
         }
     };
+    // Update the user in the database
     const result = await getDb()
         .db('cse341-p2')
         .collection('users')
-        .replaceOne({ _id: new ObjectId(userId) }, updatedUser);
+        .replaceOne({ _id: userId }, updatedUser);
     if (result.acknowledged) {
         res.status(204).send();
     } else {
@@ -81,11 +106,14 @@ const updateUser = async (req, res) => {
 
 //delete one contact
 const deleteUser = async (req, res) => {
-    const contactId = req.params.id;
-    const result = await getDb()
-        .db('cse341-p2')
-        .collection('contacts')
-        .deleteOne({ _id: new ObjectId(contactId) });
+    // Validate the id
+    if (!ObjectId.isValid(req.params.id)) {
+        res.status(400).json('Must use a valid user id.');
+    }
+    // Create a new ObjectId
+    const userId = new ObjectId(req.params.id);
+    // Delete the user from the database
+    const result = await getDb().db('cse341-p2').collection('users').deleteOne({ _id: userId });
     if (result.acknowledged) {
         res.status(200).send();
     } else {
