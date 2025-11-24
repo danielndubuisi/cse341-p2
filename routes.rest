@@ -1,52 +1,69 @@
 // LOCAL HOST
 ### Get all contacts
-GET http://localhost:8080/contacts
+GET http://localhost:8080/users
 
 ### Get one contact
-GET http://localhost:8080/contacts/690a27b7ae0d056e6868bafb
+GET http://localhost:8080/users/69239de283a8dac6864f0c0b
 
 ### Create a contact
-POST http://localhost:8080/contacts HTTP/1.1
+POST http://localhost:8080/users HTTP/1.1
 Host: localhost:8080
 Content-Type: application/json
 
 {
-    "firstName": "Bright",
-    "lastName": "Chigozie",
-    "email": "goziebright@gmail.com",
-    "favoriteColor": "beige",
-    "birthday": "11/04/2000"
+    "firstName": "Janet",
+    "lastName": "Jackson",
+    "email": "janetjackson@gmail.com",
+    "age": 48,
+    "isActive": true,
+    "role": "admin",
+    "createdAt": "2025-01-12T11:15:00Z",
+    "address": {
+        "street": "11 Jarvis Street",
+        "city": "Colorado Springs",
+        "state": "CO",
+        "zip": "80903"
+    }
 }
 
+
 ### Update a contact
-PUT http://localhost:8080/contacts/690a27b7ae0d056e6868bafb HTTP/1.1
+PUT http://localhost:8080/contacts/69239de283a8dac6864f0c0b HTTP/1.1
 Host: localhost:8080
 Content-Type: application/json
 
 {
-    "firstName": "David",
-    "lastName": "Mensah",
-    "email": "david.mensah@example.com",
-    "favoriteColor": "Burnt Orange",
-    "birthday": "1991-09-23"
+    "firstName": "Sophia",
+    "lastName": "Lee",
+    "email": "sophialee@example.com",
+    "age": 18,
+    "isActive": true,
+    "role": "admin",
+    "createdAt": "2025-01-12T10:15:00Z",
+    "address": {
+        "street": "419 Wall Street",
+        "city": "New York",
+        "state": "NY",
+        "zip": "10005"
+    }
 }
 
 ### Delete a contact
-DELETE http://localhost:8080/contacts/690a27b7ae0d056e6868bafb
+DELETE http://localhost:8080/contacts/69239de283a8dac6864f0c0b
 
 
 // PRODUCTION
 ### Get all contacts
-GET https://cse341-web-service-wq7m.onrender.com/contacts
+GET https://cse341-web-service-wq7m.onrender.com/users
 
 ### Get one contact
-GET https://cse341-web-service-wq7m.onrender.com/contacts/690a27b7ae0d056e6868bafb
+GET https://cse341-web-service-wq7m.onrender.com/users/69239de283a8dac6864f0c0b
 
 ### Create a contact
-POST https://cse341-web-service-wq7m.onrender.com/contacts
+POST https://cse341-web-service-wq7m.onrender.com/users
 
 ### Update a contact
-PUT https://cse341-web-service-wq7m.onrender.com/contacts/690a27b7ae0d056e6868bafb
+PUT https://cse341-web-service-wq7m.onrender.com/users/69239de283a8dac6864f0c0b
 
 ### Delete a contact
-DELETE https://cse341-web-service-wq7m.onrender.com/contacts/690a27b7ae0d056e6868bafb
+DELETE https://cse341-web-service-wq7m.onrender.com/users/69239de283a8dac6864f0c0b
