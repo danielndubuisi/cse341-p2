@@ -1,9 +1,10 @@
 // LOCAL HOST
+//FOR TESTING USERS ROUTES
 ### Get all users
 GET http://localhost:8080/users
 
 ### Get one user
-GET http://localhost:8080/users/69239de283a8dac6864f0c0b
+GET http://localhost:8080/users/69239de283a8dac6864f0c09
 
 ### Create a user
 POST http://localhost:8080/users HTTP/1.1
@@ -11,18 +12,17 @@ Host: localhost:8080
 Content-Type: application/json
 
 {
-    "firstName": "Janet",
-    "lastName": "Jackson",
-    "email": "janetjackson@umail.com",
-    "age": 55,
+    "firstName": "Sophia",
+    "lastName": "Lee",
+    "email": "sophia.lee@umail.com",
+    "age": 25,
     "isActive": true,
-    "role": "user",
-    "createdAt": "2025-01-12T11:15:00Z",
+    "role": "admin",
     "address": {
-        "street": "11 Jarvis Street",
-        "city": "Colorado Springs",
-        "state": "CO",
-        "zip": "80903"
+        "street": "11 Chase Street",
+        "city": "Vancouver",
+        "state": "BC",
+        "zip": "V5K 1A1"
     }
 }
 
@@ -39,7 +39,6 @@ Content-Type: application/json
     "age": 18,
     "isActive": true,
     "role": "admin",
-    "createdAt": "2025-01-12T10:15:00Z",
     "address": {
         "street": "419 Wall Street",
         "city": "New York",
@@ -49,10 +48,46 @@ Content-Type: application/json
 }
 
 ### Delete a user
-DELETE http://localhost:8080/users/69239de283a8dac6864f0c0b
+DELETE http://localhost:8080/users/6923c6da5c647e847008618b
+
+//FOR TESTING PRODUCTS ROUTES
+### Get all products
+GET http://localhost:8080/products
+
+### Get one product
+GET http://localhost:8080/products/692395fc83a8dac6864f0c08
+
+### Create a product
+POST http://localhost:8080/products HTTP/1.1
+Host: localhost:8080
+Content-Type: application/json
+
+{
+    "name": "Wireless iPhone Charger",
+    "category": "Electronics",
+    "price": 99.99,
+    "inStock": true,
+}
+
+### Update a product
+PUT http://localhost:8080/products/692395fc83a8dac6864f0c08 HTTP/1.1
+Host: localhost:8080
+Content-Type: application/json
+
+{
+    "name": "standing Desk",
+    "category": "Furniture",
+    "price": 415.99,
+    "inStock": true,
+}
+
+### Delete a product
+DELETE http://localhost:8080/products/692395fc83a8dac6864f0c08
+
 
 
 // PRODUCTION
+// FOR TESTING USERS ROUTES
 ### Get all users
 GET https://project2-cse341-ziaf.onrender.com/users
 
@@ -60,10 +95,28 @@ GET https://project2-cse341-ziaf.onrender.com/users
 GET https://project2-cse341-ziaf.onrender.com/users/69239de283a8dac6864f0c0b
 
 ### Create a user
-POST https://project2-cse341-ziaf.onrender.com/users/users
+POST https://project2-cse341-ziaf.onrender.com/users
 
 ### Update a user
 PUT https://project2-cse341-ziaf.onrender.com/users/69239de283a8dac6864f0c0b
 
 ### Delete a user
 DELETE https://project2-cse341-ziaf.onrender.com/users/69239de283a8dac6864f0c0b
+
+
+// PRODUCTION
+// FOR TESTING PRODUCT ROUTES
+### Get all products
+GET https://project2-cse341-ziaf.onrender.com/products
+
+### Get one product
+GET https://project2-cse341-ziaf.onrender.com/products/692395fc83a8dac6864f0c08
+
+### Create a product
+POST https://project2-cse341-ziaf.onrender.com/products
+
+### Update a product
+PUT https://project2-cse341-ziaf.onrender.com/products/692395fc83a8dac6864f0c08
+
+### Delete a product
+DELETE https://project2-cse341-ziaf.onrender.com/products/692395fc83a8dac6864f0c08

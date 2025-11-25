@@ -7,8 +7,8 @@ const doc = {
         title: 'CSE341 Project2 API',
         description: 'Daniel Ndubuisi web services API documentation for CSE341 project2'
     },
-    host: 'localhost:8080', // API host
-    schemes: ['http']
+    host: 'project2-cse341-ziaf.onrender.com', // API host
+    schemes: ['https']
 };
 
 swaggerAutogen(outputFile, endpointsFiles, doc).then(() => {

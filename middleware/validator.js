@@ -19,6 +19,20 @@ const userValidationRules = () => {
             .withMessage('age must be greater than 0')
     ];
 };
+const productValidationRules = () => {
+    return [
+        // product is required to have a name
+        check('name').notEmpty().withMessage('provide product name'),
+        // product category is required
+        check('category').notEmpty().withMessage('must set a category'),
+        // price must be greater than 0 and required
+        check('price')
+            .notEmpty()
+            .withMessage('must provide a price')
+            .isInt({ min: 0 })
+            .withMessage('product price must be greater than 0')
+    ];
+};
 const validate = (req, res, next) => {
     const errors = validationResult(req);
     if (errors.isEmpty()) {
@@ -34,5 +48,6 @@ const validate = (req, res, next) => {
 
 module.exports = {
     userValidationRules,
+    productValidationRules,
     validate
 };

@@ -51,7 +51,6 @@ const createUser = async (req, res) => {
         age: req.body.age,
         isActive: req.body.isActive,
         role: req.body.role,
-        createdAt: req.body.createdAt,
         address: {
             street: req.body.address.street,
             city: req.body.address.city,
@@ -60,11 +59,15 @@ const createUser = async (req, res) => {
         }
     };
     // Insert the new user into the database
-    const result = await getDb().db('cse341-p2').collection('users').insertOne(newUser);
-    if (result.acknowledged) {
-        res.status(201).json(result._id);
-    } else {
-        res.status(500).json(result.error || 'Error creating new user');
+    try {
+        const result = await getDb().db('cse341-p2').collection('users').insertOne(newUser);
+        if (result.acknowledged) {
+            res.status(201).json(result._id);
+        } else {
+            res.status(500).json(result.error || 'Error creating new user');
+        }
+    } catch (err) {
+        res.status(500).json({ message: err });
     }
 };
 
@@ -84,7 +87,6 @@ const updateUser = async (req, res) => {
         age: req.body.age,
         isActive: req.body.isActive,
         role: req.body.role,
-        createdAt: req.body.createdAt,
         address: {
             street: req.body.address.street,
             city: req.body.address.city,
@@ -93,14 +95,18 @@ const updateUser = async (req, res) => {
         }
     };
     // Update the user in the database
-    const result = await getDb()
-        .db('cse341-p2')
-        .collection('users')
-        .replaceOne({ _id: userId }, updatedUser);
-    if (result.acknowledged) {
-        res.status(204).send();
-    } else {
-        res.status(500).json(result.error || 'Error updating user');
+    try {
+        const result = await getDb()
+            .db('cse341-p2')
+            .collection('users')
+            .replaceOne({ _id: userId }, updatedUser);
+        if (result.acknowledged) {
+            res.status(204).send();
+        } else {
+            res.status(500).json(result.error || 'Error updating user');
+        }
+    } catch (err) {
+        res.status(500).json({ message: err });
     }
 };
 
@@ -113,11 +119,15 @@ const deleteUser = async (req, res) => {
     // Create a new ObjectId
     const userId = new ObjectId(req.params.id);
     // Delete the user from the database
-    const result = await getDb().db('cse341-p2').collection('users').deleteOne({ _id: userId });
-    if (result.acknowledged) {
-        res.status(200).send();
-    } else {
-        res.status(500).json(result.error || 'Error deleting contact');
+    try {
+        const result = await getDb().db('cse341-p2').collection('users').deleteOne({ _id: userId });
+        if (result.acknowledged) {
+            res.status(200).send();
+        } else {
+            res.status(500).json(result.error || 'Error deleting contact');
+        }
+    } catch (err) {
+        res.status(500).json({ message: err });
     }
 };
 
