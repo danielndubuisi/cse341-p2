@@ -12,14 +12,14 @@ Host: localhost:8080
 Content-Type: application/json
 
 {
-    "firstName": "Sophia",
+    "firstName": "John",
     "lastName": "Lee",
-    "email": "sophia.lee@umail.com",
-    "age": 25,
+    "email": "john.lee@umail.com",
+    "age": 34,
     "isActive": true,
-    "role": "admin",
+    "role": "user",
     "address": {
-        "street": "11 Chase Street",
+        "street": "15 Brooklyn Street",
         "city": "Vancouver",
         "state": "BC",
         "zip": "V5K 1A1"
@@ -66,7 +66,7 @@ Content-Type: application/json
     "name": "Wireless iPhone Charger",
     "category": "Electronics",
     "price": 99.99,
-    "inStock": true,
+    "inStock": true
 }
 
 ### Update a product
@@ -78,7 +78,7 @@ Content-Type: application/json
     "name": "standing Desk",
     "category": "Furniture",
     "price": 415.99,
-    "inStock": true,
+    "inStock": true
 }
 
 ### Delete a product

@@ -25,11 +25,11 @@ const productValidationRules = () => {
         check('name').notEmpty().withMessage('provide product name'),
         // product category is required
         check('category').notEmpty().withMessage('must set a category'),
-        // price must be greater than 0 and required
+        // price must be greater than 0 and required (allow decimals)
         check('price')
             .notEmpty()
             .withMessage('must provide a price')
-            .isInt({ min: 0 })
+            .isFloat({ min: 0.01 })
             .withMessage('product price must be greater than 0')
     ];
 };
