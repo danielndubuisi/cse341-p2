@@ -12,6 +12,9 @@ const passport = require('passport');
 const session = require('express-session');
 const githubStrategy = require('passport-github2').Strategy;
 
+// trust first proxy
+app.set('trust proxy', 1);
+
 // Swagger API documentation route — enable request interception so the UI will send cookies
 app.use(
     '/api-docs',
