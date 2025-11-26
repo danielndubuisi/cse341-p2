@@ -19,26 +19,34 @@ const {
     productValidationRules,
     validate
 } = require('../middleware/validator');
+const passport = require('passport');
+const { isAuthenticated } = require('../middleware/authenticate');
 
-//index route
-router.get('/', (req, res) => {
-    res.json({
-        message: 'Hello World!'
+// authenication routes
+router.get('/auth/github/login', passport.authenticate('github'));
+
+router.get('/logout', (req, res, next) => {
+    req.logout((err) => {
+        if (err) {
+            return next(err);
+        }
+        req.session.destroy();
+        res.redirect('/');
     });
 });
 
 // contact routes
 router.get('/users', getAllUsers);
 router.get('/users/:id', getOneUser);
-router.post('/users', userValidationRules(), validate, createUser);
-router.put('/users/:id', userValidationRules(), validate, updateUser);
-router.delete('/users/:id', deleteUser);
+router.post('/users', isAuthenticated, userValidationRules(), validate, createUser);
+router.put('/users/:id', isAuthenticated, userValidationRules(), validate, updateUser);
+router.delete('/users/:id', isAuthenticated, deleteUser);
 
 // product routes
 router.get('/products', getAllProducts);
 router.get('/products/:id', getOneProduct);
-router.post('/products', productValidationRules(), validate, createProduct);
-router.put('/products/:id', productValidationRules(), validate, updateProduct);
-router.delete('/products/:id', deleteProduct);
+router.post('/products', isAuthenticated, productValidationRules(), validate, createProduct);
+router.put('/products/:id', isAuthenticated, productValidationRules(), validate, updateProduct);
+router.delete('/products/:id', isAuthenticated, deleteProduct);
 
 module.exports = router;
