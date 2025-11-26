@@ -1,7 +1,14 @@
 const isAuthenticated = (req, res, next) => {
-    if (req.session.user === undefined) {
-        return res.status(401).json({ message: 'You do not have access!' });
+    // Passport sets req.isAuthenticated() when using sessions
+    if (typeof req.isAuthenticated === 'function' && req.isAuthenticated()) {
+        return next();
     }
-    next();
+
+    // Fallback for code that stores user in session manually
+    if (req.session && req.session.user) {
+        return next();
+    }
+
+    return res.status(401).json({ message: 'You do not have access!' });
 };
 module.exports = { isAuthenticated };

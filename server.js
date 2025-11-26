@@ -29,14 +29,24 @@ app.use(
 
 // middleware
 app.use(bodyParser.json())
-    .use(session({ secret: 'dncse341', resave: false, saveUninitialized: true }))
+    .use(
+        session({
+            secret: 'dncse341',
+            resave: false,
+            saveUninitialized: false,
+            cookie: {
+                httpOnly: true,
+                secure: true,
+                sameSite: 'none'
+            }
+        })
+    )
     .use(passport.initialize())
     .use(passport.session())
     .use(
         cors({
-            origin: true,
-            credentials: true,
-            methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS']
+            origin: 'https://project2-cse341-ziaf.onrender.com',
+            credentials: true
         })
     )
     .use('/', routes);
@@ -74,11 +84,16 @@ app.get('/', (req, res) => {
 
 app.get(
     '/auth/github/callback',
-    passport.authenticate('github', { failureRedirect: '/api-docs', session: false }),
-    function (req, res) {
-        // Successful authentication, update session and redirect home
-        req.session.user = req.user;
-        res.redirect('/');
+    passport.authenticate('github', { failureRedirect: '/api-docs' }),
+    function (req, res, next) {
+        // Login successful authentication, update session and redirect home
+        req.login(req.user, (err) => {
+            if (err) {
+                return next(err);
+            }
+            req.session.user = req.user; // optional backup
+            res.redirect('/');
+        });
     }
 );
 
